@@ -58,7 +58,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 3. Deploy the demo scenario using Argo CD, which in turn will spawn all required components in your K8s cluster:
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/alexmt/argo-combined-demo/master/demo.yaml -n argocd
+kubectl apply -f https://raw.githubusercontent.com/hrleedevstack/argo-combined-demo/master/demo.yaml -n argocd
 ```
 4. Check the components' status in Argo CD user interface.
 
