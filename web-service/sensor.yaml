@@ -57,7 +57,7 @@ spec:
                     - name: photo
                       path: /photo.jpg
                       s3:
-                        endpoint: demo-minio:9000
+                        endpoint: demo-minio.demo.svc.cluster.local:9000
                         insecure: true
                         bucket: demo
                         key: "{{inputs.parameters.path}}"
