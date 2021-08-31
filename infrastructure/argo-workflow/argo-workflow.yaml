@@ -559,6 +559,7 @@ spec:
       containers:
       - args:
         - server
+        - --secure=false
         image: docker.io/argoproj/argocli:v3.1.8
         name: argo-server
         ports:
