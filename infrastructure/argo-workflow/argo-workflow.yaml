@@ -27,6 +27,7 @@ spec:
             type: object
           spec:
             type: object
+            x-kubernetes-map-type: atomic
             x-kubernetes-preserve-unknown-fields: true
         required:
         - metadata
@@ -63,9 +64,11 @@ spec:
             type: object
           spec:
             type: object
+            x-kubernetes-map-type: atomic
             x-kubernetes-preserve-unknown-fields: true
           status:
             type: object
+            x-kubernetes-map-type: atomic
             x-kubernetes-preserve-unknown-fields: true
         required:
         - metadata
@@ -101,6 +104,7 @@ spec:
             type: object
           spec:
             type: object
+            x-kubernetes-map-type: atomic
             x-kubernetes-preserve-unknown-fields: true
         required:
         - metadata
@@ -146,9 +150,11 @@ spec:
             type: object
           spec:
             type: object
+            x-kubernetes-map-type: atomic
             x-kubernetes-preserve-unknown-fields: true
           status:
             type: object
+            x-kubernetes-map-type: atomic
             x-kubernetes-preserve-unknown-fields: true
         required:
         - metadata
@@ -185,6 +191,7 @@ spec:
             type: object
           spec:
             type: object
+            x-kubernetes-map-type: atomic
             x-kubernetes-preserve-unknown-fields: true
         required:
         - metadata
@@ -524,6 +531,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    app: workflow-controller
   name: workflow-controller-metrics
 spec:
   ports:
@@ -550,10 +559,7 @@ spec:
       containers:
       - args:
         - server
-        - --secure=false
-        - --insecure-skip-tls-verify=true
-        - --insecure-skip-verify=true
-        image: argoproj/argocli:v3.0.10
+        image: docker.io/argoproj/argocli:v3.1.8
         name: argo-server
         ports:
         - containerPort: 2746
@@ -599,7 +605,7 @@ spec:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - argoproj/argoexec:v3.0.10
+        - argoproj/argoexec:v3.1.8
         command:
         - workflow-controller
         env:
@@ -608,7 +614,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.name
-        image: argoproj/workflow-controller:v3.0.10
+        image: docker.io/argoproj/workflow-controller:v3.1.8
         livenessProbe:
           failureThreshold: 3
           httpGet:
@@ -623,9 +629,12 @@ spec:
           name: metrics
         - containerPort: 6060
         securityContext:
+          allowPrivilegeEscalation: false
           capabilities:
             drop:
             - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
       nodeSelector:
         kubernetes.io/os: linux
       securityContext:
