@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/install.yaml
+- https://github.com/argoproj/argo-workflows/releases/download/v3.1.7/install.yaml
 - workflow-role-binding.yaml
 - workflow-role.yaml
 
